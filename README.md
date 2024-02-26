@@ -13,7 +13,7 @@ You should save this function if you would like to use functions in Mixture of e
 Basic codes for mixture of experts. 
 There are 6 functions in this file. 
 1. softmax: Calculation of softmax function.
-2. IRLS: Iteratively Reweighted Least Squares estimation algorithm for the gating network.
+2. IRLS: Iteratively Reweighted Least Squares estimation algorithm for the gating network (only 1 iteration).
 3. MoE: The main function of the mixture of experts. EM algorithm is used for estimating parameters. 
 4. MoE_iter: Due to the inherent multimodality of the mixture likelihood, it is advisable to consider
 multiple initial values when applying the EM algorithm in practice. For fixed numbers of experts, this function selects the one that yields the highest likelihood.
