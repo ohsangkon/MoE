@@ -21,14 +21,14 @@ multiple initial values when applying the EM algorithm in practice. For fixed nu
 6. MoE_prediction: This function predicts y based on given x. 
 
 Arguments
-k: the number of experts
-x: covariates
-y: response variable
-z: latent variable indicating membership 
-alpha: parameters in gating networks
-exit: If the calculation of derivative is impossible, IRLS algorithm is stopped and exit is updated to exit + 1.
-eps: tolerance
-maxit: maximum iteration of EM algorithm
-iter: maximum iteration of MoE function with fixed numbers of experts.
-range: range of the number of experts
-model: results of MoE
+1. k: the number of experts
+2. x: covariates
+3. y: response variable
+4. z: latent variable indicating membership
+5. alpha: parameters in gating networks
+6. exit: If the calculation of derivative is impossible, IRLS algorithm is stopped and exit is updated to exit + 1.
+7. eps: tolerance
+8. maxit: maximum iteration of EM algorithm
+9. iter: maximum iteration of MoE function with fixed numbers of experts.
+10. range: range of the number of experts
+11. model: results of MoE
