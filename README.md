@@ -4,7 +4,8 @@ It consists of a gating network and expert networks.
 
 # Finite mixture of regressions.R
 This file is just based on regmixEM function in mixtools package in R. 
-Benaglia, T., Chauveau, D., Hunter, D. R., & Young, D. S. (2010). mixtools: an R package for analyzing mixture models. Journal of statistical software, 32, 1-29.
+
+(Benaglia, T., Chauveau, D., Hunter, D. R., & Young, D. S. (2010). mixtools: an R package for analyzing mixture models. Journal of statistical software, 32, 1-29.)
 
 # Mixture of experts.R 
 Basic codes for mixture of experts. 
