@@ -7,14 +7,6 @@ library(MASS)
 
 ############################################
 
-
-### Real dataset ###
-data(NOdata)
-attach(NOdata)
-y = Equivalence
-x = NO
-#x = cbind(NO, rnorm(nrow(NOdata), mean = 0, sd = 1))
-
 regmixEM2 = function (y, x, lambda = NULL, beta = NULL, sigma = NULL, k = 2, 
     addintercept = TRUE, arbmean = TRUE, arbvar = TRUE, epsilon = 1e-08, 
     maxit = 10000, verb = FALSE) 
@@ -154,7 +146,15 @@ regmixEM2 = function (y, x, lambda = NULL, beta = NULL, sigma = NULL, k = 2,
     }
 }
 
-regmixEM2(y, x, k = 5)
+			   
+### Example ###
+data(NOdata)
+attach(NOdata)
+y = Equivalence
+x = NO
+#x = cbind(NO, rnorm(nrow(NOdata), mean = 0, sd = 1))
+
+regmixEM2(y, x, k = 2)
 
 
 
