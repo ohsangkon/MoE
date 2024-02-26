@@ -32,3 +32,15 @@ Arguments
 9. iter: maximum iteration of MoE function with fixed numbers of experts.
 10. range: range of the number of experts
 11. model: results of MoE
+
+Values
+1. posterior: posterior probabilities
+2. beta: regression coefficients in expert networks
+3. sigma: standard deviation in expert networks
+4. alpha: parameters in the gating network
+5. BIC: bayesian information criterion
+6. ICL: Integrated Complete-data Likelihood
+7. cluster: clustering results based on posterior probabilities
+8. maxit: maximum iteration of EM algorithm
+9. all.loglik: records of log-likelihood
+   
