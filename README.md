@@ -1,5 +1,5 @@
 # MoE
-A mixture of experts is one of semisupervised learning models. 
+A mixture of experts is one of supervised learning models using devide and conquar algorithm. 
 It consists of a gating network and expert networks.  
 
 # Finite mixture of regressions.R
