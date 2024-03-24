@@ -6,6 +6,49 @@ library(boot)
 library(MASS)
 
 ############################################
+init_value <- function(k = 2, x, y, samp = 0.95){
+	### inital values ####
+	library(stats)
+	library(MASS)
+
+	model <- NULL
+	x = as.matrix(x)
+	y = as.matrix(y)
+
+	prop <- NULL
+	beta <- NULL
+	sigma <- NULL
+
+	clust_x <- list()
+	clust_y <- list()
+	init <- list()
+
+	ind <- sample(nrow(x), round(nrow(x)*samp))
+	x_sample <- as.matrix(x[ ind , ])
+	y_sample <- as.matrix(y[ ind,  ])
+
+	clust <- kmeans(as.matrix(cbind(x_sample, y_sample)),k)  # split data
+
+	for(j in 1 : k){  # estimate
+		clust_x[[j]] <- as.matrix(x_sample[which(clust$cluster == j),])
+		clust_y[[j]] <- as.matrix(y_sample[which(clust$cluster == j),])
+
+
+		design_X <- model.matrix(~., data=data.frame(clust_x[[j]]))
+		beta = cbind(beta, ginv(t(design_X) %*% design_X) %*% t(design_X) %*% clust_y[[j]])
+
+		sigma = append(sigma, sum((clust_y[[j]] - design_X %*% beta[,j])^2)/nrow(clust_x[[j]]))
+
+	}
+
+	model$lambda <- clust$size / sum(clust$size)
+	model$beta <- beta
+	model$s <- sigma
+	model$k = k
+
+	return(model)
+}
+
 
 regmixEM2 = function (y, x, lambda = NULL, beta = NULL, sigma = NULL, k = 2, 
     addintercept = TRUE, arbmean = TRUE, arbvar = TRUE, epsilon = 1e-08, 
@@ -21,9 +64,8 @@ regmixEM2 = function (y, x, lambda = NULL, beta = NULL, sigma = NULL, k = 2,
     }
     n <- length(y)
     p <- ncol(x)
-    tmp <- regmix.init(y = y, x = x, lambda = lambda, beta = beta, 
-        s = s, k = k, addintercept = addintercept, arbmean = arbmean, 
-        arbvar = arbvar)
+    tmp = init_value(k = k, x[,-1], y, samp = 0.95)
+	
     lambda <- tmp$lambda
     beta <- tmp$beta
     s <- tmp$s
@@ -42,20 +84,8 @@ regmixEM2 = function (y, x, lambda = NULL, beta = NULL, sigma = NULL, k = 2,
     z = matrix(nrow = n, ncol = k)
     restarts <- 0
     while (diff > epsilon && iter < maxit) {
-        for (i in 1:n) {
-            for (j in 1:k) {
-                z.denom = c()
-                for (h in 1:k) {
-                  z.denom = c(z.denom, (lambda[h]/lambda[j]) * 
-                    (s[j * arbvar + (1 - arbvar)]/s[h * arbvar + 
-                      (1 - arbvar)]) * exp(-0.5 * ((1/s[h * arbvar + 
-                    (1 - arbvar)]^2) * res[i, h] - (1/s[j * arbvar + 
-                    (1 - arbvar)]^2) * res[i, j])))
-                }
-                z[i, j] = 1/sum(z.denom)
-            }
-        }
-        z = z/apply(z, 1, sum)
+	z = comp/ apply(comp,1,sum)
+
         lambda.new <- apply(z, 2, mean)
         if (sum(lambda.new < 1e-08) > 0 || is.na(sum(lambda.new))) {
             sing <- 1
